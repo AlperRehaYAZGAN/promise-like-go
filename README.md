@@ -1,7 +1,7 @@
 # promise-like-go
 
 [![npm version](https://badge.fury.io/js/promise-like-go.svg)](https://badge.fury.io/js/promise-like-go)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![License: MIT](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/MIT)
 
 A lightweight TypeScript utility that brings Go-style error handling to JavaScript/TypeScript Promises. Handle async errors elegantly with tuple returns similar to Go's pattern.
 
@@ -23,23 +23,20 @@ npm install promise-like-go
 ```typescript
 import { executeAsync } from 'promise-like-go';
 
-// Example async function
-async function fetchUserData(id: string) {
-  // Your async logic here
-  return { id, name: 'John Doe' };
-}
+// ✅ e.g. usage 1: array format
+// get supabase post row
+const [post, error] = await executeAsync(async () =>
+  supabase.from('posts').select('*').eq('id', 1)
+);
+// 🔥 Do something with post or error
 
-// Using executeAsync
-async function main() {
-  const [user, error] = await executeAsync(() => fetchUserData('123'));
 
-  if (error) {
-    console.error('Error fetching user:', error);
-    return;
-  }
-
-  console.log('User found:', user);
-}
+// ✅ e.g. usage 2: object format
+// get supabase post row
+const {data: post, error} = await executeAsyncObj(async () =>
+  supabase.from('posts').select('*').eq('id', 1)
+);
+// 🔥 Do something with post or error
 ```
 
 ## API Reference
@@ -48,6 +45,7 @@ async function main() {
 
 ```typescript
 executeAsync<T>(fn: () => Promise<T>): Promise<[T | null, any]>
+executeAsyncObj<T>(fn: () => Promise<T>): Promise<{ data: T | null; error: any; }>
 ```
 
 Executes an async function and returns a tuple where:
