@@ -1,7 +1,7 @@
 {
   "name": "promise-like-go",
-  "version": "0.0.3",
-  "description": "",
+  "version": "1.0.0",
+  "description": "A simple nodejs error handling package inspired by golang error handling.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -13,8 +13,8 @@
     "build": "npx tsc"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Alper Reha YAZGAN",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.13.5",
     "typescript": "^5.7.3"

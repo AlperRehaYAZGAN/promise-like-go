@@ -39,6 +39,41 @@ const {data: post, error} = await executeAsyncObj(async () =>
 // 🔥 Do something with post or error
 ```
 
+### Another example
+
+```typescript
+// type: module
+import { executeAsync, executeAsyncObj } from "promise-like-go";
+// type: commonjs
+// const { executeAsync, executeAsyncObj } = require("promise-like-go");
+
+const fn = async () => {
+  // array format
+  const [data, error] = await executeAsync(() => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Array Format is Great 🔥");
+      }, 1000);
+    });
+  });
+  console.log("✅ array format response ➡️ ", data, error);
+
+  // object format
+  const { data: res2, error: err2 } = await executeAsyncObj(() => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Object Format is Awesome 🔥");
+      }, 1000);
+    });
+  });
+  console.log("✅ object format response ➡️ ", res2, err2);
+};
+
+fn().catch((err) => {
+  console.log("❌ error", err);
+});
+```
+
 ## API Reference
 
 ### `executeAsync`
